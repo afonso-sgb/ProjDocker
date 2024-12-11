@@ -1,0 +1,19 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/services
+
+- Apps:
+    - Lista de Contactos:
+        href: http://localhost:3000/
+        description: Criar, guarda e remove os teus contactos.
+        icon: mdi-contacts
+
+- My Second Group:
+    - My Second Service:
+        href: http://localhost/
+        description: Homepage is the best
+
+- Tools:
+    - My Third Service:
+        href: http://localhost/
+        description: Homepage is 😎
