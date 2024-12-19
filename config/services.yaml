@@ -6,14 +6,17 @@
     - Lista de Contactos:
         href: http://localhost:3000/
         description: Criar, guarda e remove os teus contactos.
-        icon: mdi-contacts
-
-- My Second Group:
-    - My Second Service:
-        href: http://localhost/
-        description: Homepage is the best
+        icon: mdi-contacts-#FF0000
 
 - Tools:
-    - My Third Service:
-        href: http://localhost/
-        description: Homepage is 😎
+    - Grafana:
+        href: https://afonsosgb.grafana.net/a/cloud-home-app
+        icon: si-grafana-#F46800
+
+    - Prometheus:
+        href: https://prometheus.io/
+        icon: si-prometheus-#E6522C
+
+    - Glances:
+        href: http://localhost:61208/
+        icon: sh-glances.svg

@@ -1,16 +1,27 @@
-services:
 
+networks:
+  monitoring:
+    driver: bridge
+
+volumes:
+  prometheus_data: {}
+  db_data:
+  grafana_data:
+
+services:
   homepage:
-      image: ghcr.io/gethomepage/homepage:latest
-      container_name: homepage
-      ports:
-        - 3001:3000
-      env_file: .env  
-      volumes:
-        - ./config:/app/config 
-      environment:
-        - PUID=${PUID}
-        - PGID=${PGID}
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    ports:
+      - 3001:3000
+    env_file: .env
+    volumes:
+      - ./config:/app/config
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+    networks:
+      - monitoring
 
   backend:
     build:
@@ -24,6 +35,8 @@ services:
       - BE/.env
     depends_on:
       - database
+    networks:
+      - monitoring
 
   frontend:
     build:
@@ -37,6 +50,8 @@ services:
       - FE/.env
     depends_on:
       - backend
+    networks:
+      - monitoring
 
   database:
     image: postgres:16.4
@@ -46,40 +61,54 @@ services:
       - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
-
-
-  postgres_exporter:
-    image: prometheuscommunity/postgres-exporter
-    container_name: postgres_exporter
-    env_file:
-      - .db.env
-    environment:
-      DATA_SOURCE_NAME: postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@database:5432/$POSTGRES_DB?sslmode=disable
-    depends_on:
-      - database
-    ports:
-      - "9187:9187"  
+    networks:
+      - monitoring
 
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
+    restart: unless-stopped
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-    ports:
-      - "9090:9090"
-    depends_on:
-      - postgres_exporter
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    expose:
+      - 9090
+    networks:
+      - monitoring
 
-  grafana:
-    image: grafana/grafana:latest
-    container_name: grafana
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    restart: unless-stopped
     volumes:
-      - grafana_data:/var/lib/grafana
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    expose:
+      - 9100
+    networks:
+      - monitoring
+  
+  glances:
+    image: nicolargo/glances:latest
+    container_name: glances
+    restart: always
     ports:
-      - "3002:3000"
-    depends_on:
-      - prometheus
-
-volumes:
-  db_data:
-  grafana_data:
+      - "61208:61208"  
+    environment:
+      - GLANCES_OPT=-w  
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock  
+    networks:
+      - monitoring

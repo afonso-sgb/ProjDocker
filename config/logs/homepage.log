@@ -5,3 +5,63 @@
 [2024-12-10T12:41:49.739Z] info: custom.css was copied to the config folder
 [2024-12-10T12:41:49.750Z] info: custom.js was copied to the config folder
 [2024-12-10T12:41:50.029Z] info: kubernetes.yaml was copied to the config folder
+[2024-12-19T00:52:20.434Z] error: Failed to load services.yaml, please check for errors
+[2024-12-19T00:52:20.451Z] error: YAMLException: bad indentation of a mapping entry (15:5)
+
+ 12 |     - Grafana:
+ 13 |         href: https://afonsosgb.gra ...
+ 14 |         icon: si-grafana-#F46800
+ 15 |     -Glances:
+----------^
+ 16 | 
+ 17 |     -Prometheus:
+[2024-12-19T00:52:20.536Z] error: Failed to load services.yaml, please check for errors
+[2024-12-19T00:52:20.538Z] error: YAMLException: bad indentation of a mapping entry (15:5)
+
+ 12 |     - Grafana:
+ 13 |         href: https://afonsosgb.gra ...
+ 14 |         icon: si-grafana-#F46800
+ 15 |     -Glances:
+----------^
+ 16 | 
+ 17 |     -Prometheus:
+[2024-12-19T00:52:20.716Z] error: Failed to load services.yaml, please check for errors
+[2024-12-19T00:52:20.717Z] error: YAMLException: bad indentation of a mapping entry (15:5)
+
+ 12 |     - Grafana:
+ 13 |         href: https://afonsosgb.gra ...
+ 14 |         icon: si-grafana-#F46800
+ 15 |     -Glances:
+----------^
+ 16 | 
+ 17 |     -Prometheus:
+[2024-12-19T00:54:36.831Z] error: Failed to load services.yaml, please check for errors
+[2024-12-19T00:54:36.833Z] error: YAMLException: bad indentation of a mapping entry (15:5)
+
+ 12 |     - Grafana:
+ 13 |         href: https://afonsosgb.gra ...
+ 14 |         icon: si-grafana-#F46800
+ 15 |     -Promethues:
+----------^
+ 16 |         href: https://prometheus.io/
+ 17 |         icon: si-prometheus-#E6522C
+[2024-12-19T00:54:36.991Z] error: Failed to load services.yaml, please check for errors
+[2024-12-19T00:54:36.995Z] error: YAMLException: bad indentation of a mapping entry (15:5)
+
+ 12 |     - Grafana:
+ 13 |         href: https://afonsosgb.gra ...
+ 14 |         icon: si-grafana-#F46800
+ 15 |     -Promethues:
+----------^
+ 16 |         href: https://prometheus.io/
+ 17 |         icon: si-prometheus-#E6522C
+[2024-12-19T00:54:38.456Z] error: Failed to load services.yaml, please check for errors
+[2024-12-19T00:54:38.457Z] error: YAMLException: bad indentation of a mapping entry (15:5)
+
+ 12 |     - Grafana:
+ 13 |         href: https://afonsosgb.gra ...
+ 14 |         icon: si-grafana-#F46800
+ 15 |     -Promethues:
+----------^
+ 16 |         href: https://prometheus.io/
+ 17 |         icon: si-prometheus-#E6522C
